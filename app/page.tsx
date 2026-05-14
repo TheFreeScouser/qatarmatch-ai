@@ -118,15 +118,33 @@ export default function QatarMatchV1() {
 
         const matchPercent = maxScore > 0 ? Math.round((score / maxScore) * 100) : 75;
 
-        return {
-          ...property,
-          score,
-          matchPercent,
-          reason:
-            reasons.length > 0
-              ? `Recommended because it is ${reasons.join(", ")}.`
-              : "Recommended as a possible match based on available listing data.",
-        };
+        let reason = "Recommend as a possible match based on available listing date"
+
+          if (property.title.toLowerCase().includes("family")) {
+    reason =
+      "Strong family option because it combines the requested bedroom count with school proximity and a practical layout.";
+  } else if (property.title.toLowerCase().includes("marina")) {
+    reason =
+      "Best lifestyle match for someone wanting Lusail access with a more premium marina-style location.";
+  } else if (Number(property.price) <= 8000) {
+    reason =
+      "Best budget-conscious option because it keeps the user well under budget while still matching the core location request.";
+  } else if (property.near_schools?.toLowerCase() === "yes") {
+    reason =
+      "Good fit for school-focused search because it prioritises family convenience and nearby education access.";
+  } else if (property.furnished?.toLowerCase() === "yes") {
+    reason =
+      "Good move-in-ready option because it is furnished and matches the main property requirements.";
+  } else if (reasons.length > 0) {
+    reason = `Good overall match because it is ${reasons.join(", ")}.`;
+  }
+
+  return {
+    ...property,
+    score,
+    matchPercent,
+    reason,
+  };
       })
       .sort((a, b) => b.score - a.score || a.price - b.price)
       .slice(0, 3);
