@@ -252,17 +252,14 @@ ${selectedProperty.reason}
                 Get instant matches
               </button>
 
-              <div className="mt-5 rounded-2xl bg-[#fcfaf6] p-4 text-sm leading-6 text-[#5f5442]">
-                <span className="font-semibold text-[#8b6f2e]">V1 loop:</span>{" "}
-                match → capture lead → book viewing → send WhatsApp
-              </div>
+              
             </div>
 
             {selectedProperty && (
               <div className="mt-6 rounded-3xl border border-[#eadfca] bg-white p-6 shadow-sm">
                 <h2 className="text-2xl font-semibold tracking-tight">Book viewing</h2>
                 <p className="mt-2 text-sm text-[#5f5442]">
-                  Capture the lead before passing the enquiry to the agency.
+                  Your details go directly to the agent for this property only.
                 </p>
 
                 <div className="mt-5 grid gap-4">
@@ -280,6 +277,10 @@ ${selectedProperty.reason}
                     placeholder="Phone / WhatsApp number"
                   />
 
+                  <p className="text-xs leading-5 text-[#6b604d]">
+                    We only share your details with the agent for this property.
+                  </p>
+
                   <select
                     value={moveTimeframe}
                     onChange={(e) => setMoveTimeframe(e.target.value)}
@@ -290,20 +291,13 @@ ${selectedProperty.reason}
                     <option>Just researching</option>
                   </select>
 
-                  <div className="rounded-2xl bg-[#fcfaf6] p-4 text-sm">
-                    <span className="font-semibold text-[#8b6f2e]">
-                      Lead status:
-                    </span>{" "}
-                    {isQualifiedLead ? "Qualified lead" : "Not qualified yet"}
-                  </div>
-
                   <a
-                    href={buildWhatsAppLink()}
-                    target="_blank"
-                    className="rounded-2xl bg-[#1f1a12] px-6 py-4 text-center font-semibold text-white hover:bg-[#3a3022]"
-                  >
-                    Send lead via WhatsApp
-                  </a>
+                  href={buildWhatsAppLink()}
+                  target="_blank"
+                  className="rounded-2xl bg-[#BA7517] px-6 py-4 text-center font-semibold text-white transition hover:bg-[#9f6112]"
+                >
+                  Send viewing request
+                </a>
                 </div>
               </div>
             )}
@@ -349,7 +343,7 @@ ${selectedProperty.reason}
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-sm font-semibold text-[#8b6f2e]">
-                        Rank #{index + 1} · {property.matchPercent}% match
+                        Rank #{index + 1} · QatarMatch Score™ {property.matchPercent}%
                       </p>
                       <h3 className="mt-2 text-xl font-semibold">{property.title}</h3>
                       <p className="mt-2 text-sm leading-6 text-[#5f5442]">
@@ -375,7 +369,7 @@ ${selectedProperty.reason}
                   </div>
 
                   <p className="mt-4 rounded-2xl bg-[#fcfaf6] p-4 text-sm leading-6 text-[#5f5442]">
-                    <span className="font-semibold text-[#8b6f2e]">Why this match: </span>
+                    <span className="font-semibold text-[#8b6f2e]">Why QatarMatch chose this: </span>
                     {property.reason}
                   </p>
 
