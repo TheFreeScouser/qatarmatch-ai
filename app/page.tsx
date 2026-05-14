@@ -182,13 +182,13 @@ export default function QatarMatchV1() {
   function buildWhatsAppLink() {
     if (!selectedProperty) return "#";
 
-    const message = `
-New QatarMatch Lead
+  const message = `
+  New QatarMatch Viewing Request
 
-Name: ${leadName}
-Phone: ${leadPhone}
-Move timeframe: ${moveTimeframe}
-Qualified lead: ${isQualifiedLead ? "Yes" : "Needs follow-up"}
+  Customer name: ${leadName || "Not provided"}
+  Customer phone: ${leadPhone || "Not provided"}
+  Move timeframe: ${moveTimeframe}
+  Lead quality: ${isQualifiedLead ? "Qualified lead" : "Needs follow-up"}
 
 User request:
 ${query}
@@ -201,7 +201,7 @@ ${selectedProperty.bedrooms} bed / ${selectedProperty.bathrooms} bath
 Furnished: ${selectedProperty.furnished}
 Near schools: ${selectedProperty.near_schools || "No"}
 
-Match reason:
+Why QatarMatch chose this:
 ${selectedProperty.reason}
 `.trim();
 
@@ -274,7 +274,7 @@ ${selectedProperty.reason}
                     value={leadPhone}
                     onChange={(e) => setLeadPhone(e.target.value)}
                     className="rounded-2xl border border-[#ddcfab] bg-[#fffdf9] p-4 outline-none focus:border-[#c9a227]"
-                    placeholder="Phone / WhatsApp number"
+                    placeholder="+974 WhatsApp number"
                   />
 
                   <p className="text-xs leading-5 text-[#6b604d]">
