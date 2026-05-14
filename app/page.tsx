@@ -13,6 +13,7 @@ type Property = {
   furnished: string;
   description: string;
   near_schools?: string;
+  image_url?: string;
 };
 
 type Filters = {
@@ -349,57 +350,80 @@ ${selectedProperty.reason}
             )}
 
             <div className="space-y-4">
-              {results.map((property, index) => (
-                <article
-                  key={`${property.title}-${index}`}
-                  className={`rounded-3xl border p-5 transition ${
-                    selectedProperty?.title === property.title
-                      ? "border-[#c9a227] bg-[#fff9e8]"
-                      : "border-[#efe4cf] bg-[#fffdf9]"
-                  }`}
+            {results.map((property, index) => (
+              <article
+                key={`${property.title}-${index}`}
+                className={`rounded-3xl border p-5 transition ${
+                  selectedProperty?.title === property.title
+                    ? "border-[#c9a227] bg-[#fff9e8]"
+                    : "border-[#efe4cf] bg-[#fffdf9]"
+                }`}
+              >
+                <div className="mb-5 overflow-hidden rounded-2xl bg-[#f4efe3]">
+                  <img
+                    src={
+                      property.image_url ||
+                      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1200&auto=format&fit=crop"
+                    }
+                    alt={property.title}
+                    className="h-52 w-full object-cover"
+                  />
+                </div>
+
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-semibold text-[#8b6f2e]">
+                      Rank #{index + 1} · QatarMatch Score™ {property.matchPercent}%
+                    </p>
+
+                    <h3 className="mt-2 text-xl font-semibold">
+                      {property.title}
+                    </h3>
+
+                    <p className="mt-2 text-sm leading-6 text-[#5f5442]">
+                      {property.description}
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl bg-[#fbf3da] px-4 py-3 text-right">
+                    <p className="text-lg font-semibold text-[#8b6f2e]">
+                      {property.price.toLocaleString()}
+                    </p>
+                    <p className="text-xs text-[#6e624d]">QAR / month</p>
+                  </div>
+                </div>
+
+                <div className="mt-4 grid gap-2 text-sm text-[#5f5442] sm:grid-cols-4">
+                  <div className="rounded-xl bg-white p-3">
+                    {property.area}
+                  </div>
+                  <div className="rounded-xl bg-white p-3">
+                    {property.bedrooms} bed
+                  </div>
+                  <div className="rounded-xl bg-white p-3">
+                    {property.bathrooms} bath
+                  </div>
+                  <div className="rounded-xl bg-white p-3">
+                    Schools: {property.near_schools || "No"}
+                  </div>
+                </div>
+
+                <p className="mt-4 rounded-2xl bg-[#fcfaf6] p-4 text-sm leading-6 text-[#5f5442]">
+                  <span className="font-semibold text-[#8b6f2e]">
+                    Why QatarMatch chose this:{" "}
+                  </span>
+                  {property.reason}
+                </p>
+
+                <button
+                  onClick={() => setSelectedProperty(property)}
+                  className="mt-4 w-full rounded-2xl border border-[#BA7517] px-5 py-3 font-semibold text-[#BA7517] hover:bg-[#fbf3da]"
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-sm font-semibold text-[#8b6f2e]">
-                        Rank #{index + 1} · QatarMatch Score™ {property.matchPercent}%
-                      </p>
-                      <h3 className="mt-2 text-xl font-semibold">{property.title}</h3>
-                      <p className="mt-2 text-sm leading-6 text-[#5f5442]">
-                        {property.description}
-                      </p>
-                    </div>
-
-                    <div className="rounded-2xl bg-[#fbf3da] px-4 py-3 text-right">
-                      <p className="text-lg font-semibold text-[#8b6f2e]">
-                        {property.price.toLocaleString()}
-                      </p>
-                      <p className="text-xs text-[#6e624d]">QAR / month</p>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 grid gap-2 text-sm text-[#5f5442] sm:grid-cols-4">
-                    <div className="rounded-xl bg-white p-3">{property.area}</div>
-                    <div className="rounded-xl bg-white p-3">{property.bedrooms} bed</div>
-                    <div className="rounded-xl bg-white p-3">{property.bathrooms} bath</div>
-                    <div className="rounded-xl bg-white p-3">
-                      Schools: {property.near_schools || "No"}
-                    </div>
-                  </div>
-
-                  <p className="mt-4 rounded-2xl bg-[#fcfaf6] p-4 text-sm leading-6 text-[#5f5442]">
-                    <span className="font-semibold text-[#8b6f2e]">Why QatarMatch chose this: </span>
-                    {property.reason}
-                  </p>
-
-                  <button
-                    onClick={() => setSelectedProperty(property)}
-                    className="mt-4 w-full rounded-2xl border border-[#c9a227] px-5 py-3 font-semibold text-[#8b6f2e] hover:bg-[#fbf3da]"
-                  >
-                    Book viewing
-                  </button>
-                </article>
-              ))}
-            </div>
+                  Book viewing
+                </button>
+              </article>
+            ))}
+          </div>
           </div>
         </section>
       </div>
