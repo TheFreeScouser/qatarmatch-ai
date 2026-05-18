@@ -31,7 +31,7 @@ type RankedProperty = Property & {
 };
 
 export default function QatarMatchV1() {
-  const WHATSAPP_NUMBER = ""; // Add number later, e.g. "974XXXXXXXX"
+  const WHATSAPP_NUMBER = "97471074505"; // Add number later, e.g. "974XXXXXXXX"
 
   const [properties, setProperties] = useState<Property[]>([]);
   const [query, setQuery] = useState("2-bed in Lusail under 9k near schools furnished");
@@ -205,7 +205,7 @@ export default function QatarMatchV1() {
   New QatarMatch Viewing Request
 
   Customer name: ${leadName || "Not provided"}
-  Customer phone: ${leadPhone || "Not provided"}
+ Customer phone: ${leadPhone ? `+974 ${leadPhone}` : "Not provided"}
   Move timeframe: ${moveTimeframe}
   Lead quality: ${isQualifiedLead ? "Qualified lead" : "Needs follow-up"}
 
@@ -240,6 +240,11 @@ ${selectedProperty.reason}
           <p className="text-sm font-medium uppercase tracking-[0.25em] text-[#8b6f2e]">
             QatarMatch AI
           </p>
+
+        <p className="mt-2 inline-flex rounded-full bg-[#fbf3da] px-3 py-1 text-xs font-semibold text-[#8b6f2e]">
+          Live V1 demo · AI-powered real estate lead conversion
+        </p>
+
           <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-6xl">
             Zero-browsing property decisions.
           </h1>
@@ -289,12 +294,17 @@ ${selectedProperty.reason}
                     placeholder="Name"
                   />
 
-                  <input
-                    value={leadPhone}
-                    onChange={(e) => setLeadPhone(e.target.value)}
-                    className="rounded-2xl border border-[#ddcfab] bg-[#fffdf9] p-4 outline-none focus:border-[#c9a227]"
-                    placeholder="+974 WhatsApp number"
-                  />
+                  <div className="flex overflow-hidden rounded-2xl border border-[#ddcfab] bg-[#fffdf9] focus-within:border-[#c9a227]">
+                    <div className="flex items-center border-r border-[#ddcfab] bg-[#fbf3da] px-4 text-sm font-semibold text-[#8b6f2e]">
+                      +974
+                    </div>
+                    <input
+                      value={leadPhone}
+                      onChange={(e) => setLeadPhone(e.target.value)}
+                      className="w-full bg-transparent p-4 outline-none"
+                      placeholder="WhatsApp number"
+                    />
+                  </div>
 
                   <p className="text-xs leading-5 text-[#6b604d]">
                     We only share your details with the agent for this property.
@@ -331,6 +341,9 @@ ${selectedProperty.reason}
                 <h2 className="mt-2 text-2xl font-semibold tracking-tight">
                   Top 3 matches
                 </h2>
+                <p className="mt-2 text-sm text-[#6b604d]">
+                  {properties.length} properties searched. {results.length} best matches found.
+                </p>
               </div>
               <span className="rounded-full bg-[#fbf3da] px-3 py-1 text-sm font-semibold text-[#8b6f2e]">
                 Fast response
@@ -404,7 +417,9 @@ ${selectedProperty.reason}
                     {property.bathrooms} bath
                   </div>
                   <div className="rounded-xl bg-white p-3">
-                    Schools: {property.near_schools || "No"}
+                    {property.near_schools?.toLowerCase() === "yes"
+                      ? "5 min drive to nearby schools"
+                      : "School distance not listed"}
                   </div>
                 </div>
 
